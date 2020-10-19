@@ -1,0 +1,6 @@
+node_modules
+*.backup
+rtl433.json
+package-lock.json
+.config.json
+

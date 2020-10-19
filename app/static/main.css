@@ -1,0 +1,104 @@
+* { box-sizing: border-box; }
+
+body {
+  color: white;
+  background-color: black;
+  font-family: calibri, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+svg { display: block; }
+path:not([fill]) { fill: currentColor; }
+
+#top {
+  margin: 0 16px;
+  padding: 16px 0;
+}
+
+#clock {
+  font-size: 120px;
+  font-weight: bold;
+  text-align: center;
+  font-variant: lining-nums;
+}
+#calendar {
+  text-align: right;
+  font-size: 24px;
+}
+
+#widgets {
+  flex: auto;
+  display: flex;
+}
+#widgets > * {
+  border-left: 1px solid transparent;
+  padding: 16px 16px 0 16px;
+	flex: 1 1 0;
+}
+
+#widgets dl, #widgets dd { margin: 0; }
+#widgets dl > div {
+	display: flex;
+	align-items: center;
+}
+
+#weather { font-size: 40px; }
+#weather svg {
+	width: 64px;
+	height: 64px;
+}
+#weather .wind svg {
+	width: 48px;
+	height: 48px;
+	margin: 8px;
+}
+#weather .temperature[data-warm="1"] svg { color: red; }
+#weather .temperature[data-warm="0"] svg { color: dodgerblue; }
+#weather .humidity svg { color: dodgerblue; }
+
+#trash div { font-size: 32px; }
+#trash dt { margin-right: 8px; }
+#trash svg {
+	width: 64px;
+	height: 64px;
+}
+#trash .bio dt { color: saddlebrown; }
+
+#transport header {
+	display: flex;
+	align-items: center;
+}
+#transport .headsign {
+	text-align: center;
+	font-size: 20px;
+	flex: auto;
+}
+#transport svg {
+	width: 36px;
+	height: 36px;
+	flex: none;
+}
+#transport .line {
+	font-size: 32px;
+	font-weight: bold;
+	padding: 0 8px;
+}
+#transport ul {
+	font-size: 26px;
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	margin: 4px 0;
+	padding: 0;
+}
+#transport > div + div { margin-top: 26px; }
+
+body { --border: 1px solid white; }
+nav { border-right: var(--border); }
+#top { border-bottom: var(--border); }
+#widgets > *:not(:first-child) { border-left: var(--border); }
+
+
