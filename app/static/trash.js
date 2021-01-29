@@ -37,7 +37,9 @@ function update(t) {
 
 	let remainBio = (bioDay - day + 7) % 7;
 	let bioDate = new Date(t.getTime() + remainBio*DAY);
-	if (bioDate.getWeek() % 2 == 0) { remainBio += 7; }
+
+	// FIXME zde ma byt pricitani pro *sude*, ale vypocet tydne pro 2021 je o jeden vedle
+	if (bioDate.getWeek() % 2 == 1) { remainBio += 7; }
 
 	nodes.normal.innerHTML = format(remainNormal);
 	nodes.bio.innerHTML = format(remainBio);

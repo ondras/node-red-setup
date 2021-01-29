@@ -17,6 +17,8 @@ async function update(t) {
 	let doy = t.getDayOfYear();
 	let type = (doy % 2 ? "ovocný" : "dobrůtkový");
 
+	if (["Ema", "Julie", "Robin", "Ondřej", "Jana"].includes(s)) { s = `${s} ❤️`; }
+
 	node.textContent = `${type} den, `  + dateFormat.format(t) + `, svátek má ${s}`;
 }
 
