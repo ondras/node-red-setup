@@ -8,25 +8,26 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  --spacing: 3.33vh;
 }
 
 svg { display: block; }
 path:not([fill]) { fill: currentColor; }
 
 #top {
-  margin: 0 16px;
-  padding: 16px 0;
+  margin: 0 var(--spacing);
+  padding: var(--spacing) 0;
 }
 
 #clock {
-  font-size: 120px;
+  font-size: 25vh;
   font-weight: bold;
   text-align: center;
   font-variant: lining-nums;
 }
 #calendar {
   text-align: right;
-  font-size: 24px;
+  font-size: 5vh;
 }
 
 #widgets {
@@ -35,8 +36,8 @@ path:not([fill]) { fill: currentColor; }
 }
 #widgets > * {
   border-left: 1px solid transparent;
-  padding: 16px 16px 0 16px;
-	flex: 1 1 0;
+  padding: var(--spacing);
+  flex: 1 1 0;
 }
 
 #widgets dl, #widgets dd { margin: 0; }
@@ -45,25 +46,30 @@ path:not([fill]) { fill: currentColor; }
 	align-items: center;
 }
 
-#weather { font-size: 40px; }
+#weather { font-size: 8.33vh; }
+#weather > div + div { margin-top: calc(var(--spacing)/2); }
 #weather svg {
-	width: 64px;
-	height: 64px;
+	--size: 13.33vh;
+	width: var(--size);
+	height: var(--size);
 }
 #weather .wind svg {
-	width: 48px;
-	height: 48px;
-	margin: 8px;
+	--size: 10vh;
+	width: var(--size);
+	height: var(--size);
+	margin: calc(var(--spacing) / 2);
 }
 #weather .temperature[data-warm="1"] svg { color: red; }
 #weather .temperature[data-warm="0"] svg { color: dodgerblue; }
 #weather .humidity svg { color: dodgerblue; }
 
-#trash div { font-size: 32px; }
-#trash dt { margin-right: 8px; }
+#trash div { font-size: 6.67vh; }
+#trash > div + div { margin-top: var(--spacing); }
+#trash dt { margin-right: calc(var(--spacing)/2); }
 #trash svg {
-	width: 64px;
-	height: 64px;
+	--size: 13.33vh;
+	width: var(--size);
+	height: var(--size);
 }
 #trash .bio dt { color: saddlebrown; }
 
@@ -73,28 +79,29 @@ path:not([fill]) { fill: currentColor; }
 }
 #transport .headsign {
 	text-align: center;
-	font-size: 20px;
+	font-size: 5vh;
 	flex: auto;
 }
 #transport svg {
-	width: 36px;
-	height: 36px;
+	--size: 7.5vh;
+	width: var(--size);
+	height: var(--size);
 	flex: none;
 }
 #transport .line {
-	font-size: 32px;
+	font-size: 6.67vh;
 	font-weight: bold;
-	padding: 0 8px;
+	padding: 0 calc(var(--spacing)/2);
 }
 #transport ul {
-	font-size: 26px;
+	font-size: 5vh;
 	display: flex;
 	justify-content: space-between;
 	list-style: none;
-	margin: 4px 0;
+	margin: calc(var(--spacing)/4) 0;
 	padding: 0;
 }
-#transport > div + div { margin-top: 26px; }
+#transport > div + div { margin-top: calc(var(--spacing)*2); }
 
 body { --border: 1px solid white; }
 nav { border-right: var(--border); }

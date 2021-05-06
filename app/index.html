@@ -15,7 +15,7 @@ body {
 nav {
 	display: flex;
 	flex-direction: column;
-	width: 68px;
+	width: calc(100vh / 6);
 	border-right: 1px solid currentColor;
 }
 
@@ -24,7 +24,7 @@ nav ul, nav li {
 }
 
 nav a {
-	flex: 1 1 0;
+	flex: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -36,8 +36,8 @@ nav li + li a {
 }
 
 nav svg {
-	width: 48px;
-	height: 48px;
+	width: 60%;
+	height: 60%;
 }
 
 svg.weather-partly-cloudy { color: #ff4; }
@@ -62,7 +62,7 @@ path:not([fill]) {
 			<li><a href="http://data.home:3000/d/IhegOUmRk/weather-forecast?orgId=1&amp;viewPanel=4" target="main"><img data-icon="weather-partly-cloudy" /></a></li>
 			<li><a href="http://radar.bourky.cz/" target="main"><img data-icon="radar" /></a></li>
 			<li><a href="http://data.home:3000/" target="main"><img data-icon="chart-line" /></a></li>
-			<li><a href="https://kucharka.zarovi.cz/" target="main"><img data-icon="chef-hat" /></a></li>
+			<li><a href="https://kucharka.zarovi.cz/?vk" target="main"><img data-icon="chef-hat" /></a></li>
   </ul>
 </nav>
 <iframe name="main" id="main"></iframe>
