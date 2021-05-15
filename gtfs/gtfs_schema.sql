@@ -52,6 +52,8 @@ create table routes (
   route_color text,
   route_text_color text,
   is_night int,
+  is_regional int,
+  is_substitute_transport int,
 
   -- not present in PID
   -- route_desc  text,
@@ -111,6 +113,7 @@ create table stop_times (
   pickup_type   int,
   drop_off_type int,
   shape_dist_traveled double precision,
+  trip_operation_type int,
 
   FOREIGN KEY (trip_id) REFERENCES trips(trip_id),
   FOREIGN KEY (stop_id) REFERENCES stops(stop_id)
