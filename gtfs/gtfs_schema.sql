@@ -114,6 +114,7 @@ create table stop_times (
   drop_off_type int,
   shape_dist_traveled double precision,
   trip_operation_type int,
+  bikes_allowed int,
 
   FOREIGN KEY (trip_id) REFERENCES trips(trip_id),
   FOREIGN KEY (stop_id) REFERENCES stops(stop_id)
