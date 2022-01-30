@@ -37,6 +37,7 @@ path:not([fill]) { fill: currentColor; }
 #widgets > * {
   border-left: 1px solid transparent;
   padding: var(--spacing);
+  padding-bottom: 0;
   flex: 1 1 0;
 }
 
