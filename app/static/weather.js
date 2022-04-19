@@ -15,31 +15,16 @@ function buildRow(hours, item) {
 	row.insertCell().textContent = `${item.temperature} °C`;
 }
 
-async function update_old(t) {
-	let r = await fetch("weather");
-	let data = await r.json();
-
-	node.innerHTML = "";
-	let rows = 0;
-	data.forEach((item, index) => {
-		if (rows >= 5) { return; }
-		let date = new Date(item.time);
-		let hours = date.getHours();
-		if (index == 0 || (hours % 6 == 0)) {
-			buildRow(hours, item);
-			rows++;
-		}
-	});
-}
-
 async function update(t) {
 	let r = await fetch("weather/current");
 	let data = await r.json();
-	data = data[0];
 
-	nodes.temperature.querySelector("dd").textContent = `${data.temperature} °C`;
-	nodes.temperature.dataset.warm = (data.temperature > 0 ? "1" : "0");
-	nodes.humidity.querySelector("dd").textContent = `${data.humidity} %`;
+	if (data) {
+		data = data[0];
+		nodes.temperature.querySelector("dd").textContent = `${data.temperature} °C`;
+		nodes.temperature.dataset.warm = (data.temperature > 0 ? "1" : "0");
+		nodes.humidity.querySelector("dd").textContent = `${data.humidity} %`;
+	}
 
 	r = await fetch("weather");
 	data = await r.json();
