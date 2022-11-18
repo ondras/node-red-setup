@@ -19,13 +19,11 @@ async function update(t) {
 	let r = await fetch("weather/current");
 	let data = await r.json();
 
-	if (data) {
-		data = data[0];
-		nodes.temperature.querySelector("dd").textContent = `${data.temperature} °C`;
-		nodes.temperature.dataset.warm = (data.temperature > 0 ? "1" : "0");
-		nodes.humidity.querySelector("dd").textContent = `${data.humidity} %`;
-	}
-
+	data = data[0];
+	nodes.temperature.querySelector("dd").textContent = (data ? `${data.temperature} °C` : "");
+	nodes.temperature.dataset.warm = (data && data.temperature > 0 ? "1" : "0");
+	nodes.humidity.querySelector("dd").textContent = (data ? `${data.humidity} %` : "");
+	
 	r = await fetch("weather");
 	data = await r.json();
 	data.sort((a, b) => {
