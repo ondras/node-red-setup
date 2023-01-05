@@ -22,7 +22,7 @@ async function update(t) {
 	data = data[0];
 	nodes.temperature.querySelector("dd").textContent = (data ? `${data.temperature} °C` : "");
 	nodes.temperature.dataset.warm = (data && data.temperature > 0 ? "1" : "0");
-	nodes.humidity.querySelector("dd").textContent = (data ? `${data.humidity} %` : "");
+	nodes.humidity.querySelector("dd").textContent = (data ? `${data.humidity || "?"} %` : "");
 	
 	r = await fetch("weather");
 	data = await r.json();

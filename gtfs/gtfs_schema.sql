@@ -31,11 +31,15 @@ create table stops (
   parent_station text,
   wheelchair_boarding int,
   level_id text,
-  platform_code text
+  platform_code text,
 
   -- not present in PID
   -- stop_code  text,
   -- stop_desc  text
+
+  -- pid specific
+  asw_node_id int,
+  asw_stop_id int
 
   -- does not work with empty strings
   -- FOREIGN KEY (parent_station) REFERENCES stops(stop_id)
