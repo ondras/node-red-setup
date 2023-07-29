@@ -3,6 +3,7 @@ import * as timer from "./timer.js";
 
 const nodes = {};
 ["temperature", "humidity", "wind"].forEach(name => nodes[name] = document.querySelector(`#weather .${name}`));
+const HOUR = 60*60;
 
 function buildRow(hours, item) {
 	let row = node.insertRow();
@@ -15,25 +16,27 @@ function buildRow(hours, item) {
 	row.insertCell().textContent = `${item.temperature} °C`;
 }
 
-async function update(t) {
-	let r = await fetch("weather/current");
+async function promQuery(metric) {
+	let query = `${metric}{location="zahrada"}`;
+	let r = await fetch(`http://nas.home:9090/api/v1/query?query=${encodeURIComponent(query)}`);
 	let data = await r.json();
+	let value = data.data.result[0].value;
+	let age = Date.now()/1000 - value[0];
+	return (age < HOUR ? value[1] : null);
+}
 
-	data = data[0];
-	nodes.temperature.querySelector("dd").textContent = (data ? `${data.temperature} °C` : "");
-	nodes.temperature.dataset.warm = (data && data.temperature > 0 ? "1" : "0");
-	nodes.humidity.querySelector("dd").textContent = (data ? `${data.humidity || "?"} %` : "");
+async function update(t) {
+	let temp = await promQuery("env_temperature_celsius");
+	let hum = await promQuery("env_humidity_percent");
+
+	nodes.temperature.querySelector("dd").textContent = (temp === null ? "" : `${temp} °C`);
+	nodes.temperature.dataset.warm = (temp !== null && temp > 0 ? "1" : "0");
+	nodes.humidity.querySelector("dd").textContent = (hum === null ? "" : `${hum} %`);
 	
-	r = await fetch("weather");
-	data = await r.json();
-	data.sort((a, b) => {
-		let dta = new Date(a.time).getTime() - t.getTime();
-		let dtb = new Date(b.time).getTime() - t.getTime();
-		return Math.abs(dta) - Math.abs(dtb);
-	});
-	data = data[0];
-
-	nodes.wind.querySelector("dd").textContent = `${data.wind_speed} m/s`;
+	let r = await fetch("https://api.met.no/weatherapi/locationforecast/2.0/compact?lon=14.413&lat=50.013");
+	let data = await r.json();
+	let item = data.properties.timeseries[0];
+	nodes.wind.querySelector("dd").textContent = `${item.data.instant.details.wind_speed} m/s`;
 }
 
 timer.on("minute", update);
