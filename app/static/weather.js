@@ -16,18 +16,21 @@ function buildRow(hours, item) {
 	row.insertCell().textContent = `${item.temperature} °C`;
 }
 
-async function promQuery(metric) {
-	let query = `${metric}{location="zahrada"}`;
+async function promQuery(metric, location) {
+	let query = `${metric}{location="${location}"}`;
 	let r = await fetch(`http://nas.home:9090/api/v1/query?query=${encodeURIComponent(query)}`);
 	let data = await r.json();
-	let value = data.data.result[0].value;
+	let result = data.data.result;
+	if (result.length == 0) { return null; }
+	let value = result[0].value;
 	let age = Date.now()/1000 - value[0];
 	return (age < HOUR ? value[1] : null);
 }
 
 async function update(t) {
-	let temp = await promQuery("env_temperature_celsius");
-	let hum = await promQuery("env_humidity_percent");
+	let temp = await promQuery("env_temperature_celsius", "zahrada");
+	let hum = await promQuery("env_humidity_percent", "zahrada");
+	if (temp === null) { temp = await promQuery("env_temperature_celsius", "mw"); }
 
 	nodes.temperature.querySelector("dd").textContent = (temp === null ? "" : `${temp} °C`);
 	nodes.temperature.dataset.warm = (temp !== null && temp > 0 ? "1" : "0");
