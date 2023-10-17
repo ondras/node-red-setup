@@ -38,7 +38,7 @@ path:not([fill]) { fill: currentColor; }
   border-left: 1px solid transparent;
   padding: var(--spacing);
   padding-bottom: 0;
-  flex: 1 1 0;
+  flex: 10 1 0;
 }
 
 #widgets dl, #widgets dd { margin: 0; }
@@ -64,6 +64,7 @@ path:not([fill]) { fill: currentColor; }
 #weather .temperature[data-warm="0"] svg { color: dodgerblue; }
 #weather .humidity svg { color: dodgerblue; }
 
+#trash { flex-grow: 8; }
 #trash div { font-size: 6.67vh; }
 #trash > div + div { margin-top: var(--spacing); }
 #trash dt { margin-right: calc(var(--spacing)/2); }
@@ -74,6 +75,9 @@ path:not([fill]) { fill: currentColor; }
 }
 #trash .bio dt { color: saddlebrown; }
 
+#transport {
+	flex-grow: 14;
+}
 #transport header {
 	display: flex;
 	align-items: center;
@@ -99,9 +103,11 @@ path:not([fill]) { fill: currentColor; }
 	display: flex;
 	justify-content: space-between;
 	list-style: none;
-	margin: calc(var(--spacing)/4) 0;
+	margin: calc(var(--spacing)/3) 0;
 	padding: 0;
 }
+#transport [data-index="1"] { color: #ff0; }
+
 #transport > div + div { margin-top: calc(var(--spacing)*2); }
 
 body { --border: 1px solid white; }
