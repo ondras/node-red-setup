@@ -48,15 +48,15 @@ class Departures {
 			let line = document.createElement("span");
 			line.classList.add("line");
 			line.textContent = this._conf.line;
-			
+
 			let headsign = document.createElement("span");
 			headsign.classList.add("headsign");
-			
+
 			[].concat(this._conf.headsign).forEach((h, i) => {
 				i && headsign.append(document.createElement("br"));
 				let span = document.createElement("span");
 				span.dataset.index = i;
-				span.textContent = h;
+				span.textContent = (typeof(h) === "string" ? h : h.label);
 				headsign.append(span);
 			});
 
@@ -86,7 +86,8 @@ class Departures {
 			t.getDate()
 		].join("-");
 
-		let promises = headsigns.map(async (trip_headsign, index) => {
+		let promises = headsigns.map(async (h, index) => {
+			let trip_headsign = (typeof(h) == "string" ? h : h.value);
 			let departures = await api("departures", {stop_ids, route_id, trip_headsign, date});
 			return departures.map(time => ({ index, time }));
 		});
@@ -98,7 +99,7 @@ class Departures {
 		this._show(t);
 	}
 
-	async _show(t, departures) {
+	async _show(t) {
 		let time = `${t.getHours()}:${t.getMinutes().toString().padStart(2, "0")}:${t.getSeconds().toString().padStart(2, "0")}`;
 		let num = toNumber(time);
 		let next = this._departures.filter(d => toNumber(d.time) > num).slice(0, 3);
@@ -123,6 +124,6 @@ new Departures({
 	stop: "Družná",
 	line: "139",
 	icon: "bus",
-	headsign: ["Komořany", "Sídliště Zbraslav"]
+	headsign: ["Komořany", {value:"Sídliště Zbraslav", label:"Zbraslav"}]
 }, node);
 
